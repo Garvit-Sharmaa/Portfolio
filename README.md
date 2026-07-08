@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Garvit Sharma - Enterprise Portfolio Architecture
 
-## Getting Started
+> *A high-performance, cinematic portfolio engineered for scale, maintainability, and exceptional user experience.*
 
-First, run the development server:
+## System Overview
+
+This repository houses the source code for my professional portfolio. Engineered as a modern web application, the architecture prioritizes rapid content delivery, modular component design, and a highly polished, cinematic user interface. The system leverages static site generation, aggressive caching, and dynamic module loading to ensure an optimal performance baseline.
+
+## Technical Stack & Infrastructure
+
+- **Core Framework**: [Next.js](https://nextjs.org/) (React framework) operating on the App Router paradigm.
+- **Language**: Strict TypeScript (`TS 5.x`), enforcing rigorous type safety across all component boundaries and state transitions.
+- **Styling Engine**: Tailwind CSS coupled with Framer Motion for hardware-accelerated, high-fidelity micro-interactions and spatial animations.
+- **Data Layer**: Local JSON abstraction (`src/content/projects.json`) designed for zero-latency retrieval, easily extensible to a headless CMS or external database in future iterations.
+
+## Architectural Principles
+
+1. **Modular Component Hierarchy**: The UI is strictly decoupled into independent, highly cohesive `features` (`home`, `canvas`, `boot`). This encapsulation prevents style leakage and state contamination.
+2. **Deterministic State Management**: Complex interactions (such as the Boot Sequence and dynamic project feeds) rely on predictable, unidirectional data flow.
+3. **Performance First**: 
+    - Critical rendering paths are optimized.
+    - SVG assets (icons via `lucide-react` & `react-icons`) are tree-shaken to minimize bundle sizes.
+    - Heavy visual effects (glassmorphism, gradients) are delegated to the GPU.
+
+## Local Development & Deployment
+
+### Prerequisites
+- Node.js `v18.17.0` or higher
+- `npm` or `yarn`
+
+### Initialization
 
 ```bash
+# Clone the repository
+git clone https://github.com/Garvit-Sharmaa/Portfolio.git
+
+# Install dependencies
+npm install
+
+# Boot the local development server (Port 3000)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Production Build
+To simulate the production environment and analyze bundle sizing:
+```bash
+npm run build
+npm run start
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Repository Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```text
+src/
+├── app/                  # Next.js App Router configuration and global layouts
+├── components/           # Reusable UI primitives (Error Boundaries)
+├── content/              # Static data stores (projects, configuration)
+├── features/             # Domain-specific modules (Hero, About, Projects, Contact)
+├── lib/                  # Core utility functions and intelligence engines
+└── types/                # Global TypeScript interfaces
+```
 
-## Learn More
+## Continuous Integration / Continuous Deployment (CI/CD)
 
-To learn more about Next.js, take a look at the following resources:
+The repository is configured for automated deployment. Every push to the `main` branch triggers a strict build pipeline that verifies TypeScript typings, enforces ESLint rules, and compiles an optimized production build before traffic routing.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Engineered by Garvit Sharma.*
