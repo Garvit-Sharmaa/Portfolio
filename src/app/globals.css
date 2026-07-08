@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+:root {
+  --background: #050505;
+  --foreground: #FFFFFF;
+  --industrial-orange: #E50000; /* Re-mapped to the aggressive Crimson Red */
+  
+  --success: #10B981;
+  --warning: #F59E0B;
+  --error: #EF4444;
+  --info: #3B82F6;
+  
+  --surface1: #111111;
+  --surface2: #1A1A1A;
+  
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-focus: rgba(229, 0, 0, 0.4);
+  
+  --shadow-glow: 0 4px 30px rgba(229, 0, 0, 0.15);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-industrial-orange: var(--industrial-orange);
+  
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-info: var(--info);
+  
+  --color-surface1: var(--surface1);
+  --color-surface2: var(--surface2);
+  
+  --color-border-subtle: var(--border-subtle);
+  --color-border-focus: var(--border-focus);
+  
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-serif: var(--font-playfair);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-space-grotesk);
+}
+
+/* Custom scrollbar - Brutalist style */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+  border-left: 1px solid var(--surface2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--surface2);
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--industrial-orange);
+}
+
+/* Accessibility: Phase 4 Motion Design */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

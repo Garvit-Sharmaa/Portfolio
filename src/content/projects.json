@@ -1,0 +1,482 @@
+[
+  {
+    "id": 5,
+    "slug": "studysync",
+    "title": "StudySync",
+    "subtitle": "Real-Time Collaborative Platform",
+    "problem": "Collaborative study environments lack synced multi-modal tools, relying on disjointed apps for video, notes, and timing.",
+    "solution": "Built a production-grade real-time platform supporting 100 concurrent users per room with CRDT-based note editing, SFU video/audio, and end-to-end encryption.",
+    "tech": [
+      "React",
+      "TypeScript",
+      "Yjs (CRDT)",
+      "LiveKit (WebRTC)",
+      "Redis",
+      "WebSocket"
+    ],
+    "results": "Achieved sub-50ms WebSocket broadcast and sub-150ms video latency at P99.",
+    "github": "https://github.com/Garvit-Sharmaa",
+    "status": "Deployed",
+    "hotPath": "Real-time state is distributed via two parallel WebSocket pipelines: Yjs handles conflict-free concurrent document editing, while a custom ws + Redis pub/sub layer handles presence, chat, and timer sync across instances.",
+    "postMortem": "Managing Zustand state for highly frequent collaborative updates caused render thrashing. Split the monolithic store into 5 focused slices, reducing re-renders by 35%.",
+    "concepts": [
+      "CRDTs",
+      "WebRTC / SFU",
+      "Pub/Sub",
+      "End-to-End Encryption",
+      "OpenTelemetry"
+    ],
+    "relatedSlugs": [
+      "nexura-solutions",
+      "typeforge"
+    ],
+    "insights": [
+      "LiveKit SFU architecture requires O(n) bandwidth scaling instead of the O(n²) scaling of WebRTC mesh networks, saving immense client-side resources.",
+      "Web Crypto AES-GCM allows true end-to-end encryption of notes, ensuring the server only persists binary Yjs update logs without ever seeing plaintext."
+    ],
+    "decisions": [
+      {
+        "decision": "Collaborative Editing Engine",
+        "options": [
+          "Operational Transformation (OT)",
+          "Yjs (CRDT)",
+          "Automerge (CRDT)"
+        ],
+        "selected": "Yjs (CRDT)",
+        "reason": "Yjs offers superior performance for text-based documents and has excellent bindings for TipTap. OT requires a centralized server to sequence operations, whereas CRDTs allow true decentralized conflict resolution.",
+        "tradeoff": "CRDTs consume more memory over time due to tombstoning deleted characters. Mitigated by implementing aggressive document compaction on the server."
+      }
+    ],
+    "metrics": [
+      {
+        "label": "State Management Efficiency",
+        "value": "35",
+        "unit": "% fewer renders",
+        "context": "Achieved by splitting monolithic Zustand store into 5 isolated slices."
+      },
+      {
+        "label": "P99 Broadcast Latency",
+        "value": "< 50",
+        "unit": "ms",
+        "context": "Redis pub/sub cross-server message propagation."
+      }
+    ],
+    "timeline": [
+      {
+        "version": "v1.0",
+        "label": "Production Release",
+        "description": "Deployed core platform with LiveKit SFU, CRDT note editing, and AES-GCM encryption."
+      }
+    ],
+    "brandColor": "#E53E3E",
+    "images": []
+  },
+  {
+    "id": 4,
+    "slug": "nexura-solutions",
+    "title": "Nexura Solutions",
+    "subtitle": "Enterprise B2B SaaS",
+    "problem": "Enterprises struggle with secure multi-tenant data isolation and real-time collaboration across external sources.",
+    "solution": "Architected a scalable SaaS with strict row-level security (RLS), real-time WebSocket dashboards, and automated Google Sheets synchronization via BullMQ.",
+    "tech": [
+      "React",
+      "NestJS",
+      "PostgreSQL",
+      "BullMQ",
+      "Socket.io",
+      "Stripe"
+    ],
+    "results": "Secure multi-tenant isolation with real-time sync capabilities.",
+    "github": "https://github.com/Garvit-Sharmaa",
+    "status": "Deployed",
+    "hotPath": "Real-time dashboard updates are pushed via WebSockets to the frontend, while heavy data ingestion tasks from Google Sheets are offloaded to Redis-backed BullMQ workers.",
+    "postMortem": "Managing WebSocket connections across multiple active tenants required robust room isolation to prevent data leakage.",
+    "concepts": [
+      "Multi-tenant",
+      "Row-Level Security",
+      "WebSockets",
+      "Job Queues",
+      "Stripe Billing"
+    ],
+    "relatedSlugs": [
+      "typeforge"
+    ],
+    "insights": [
+      "BullMQ on Redis provides crucial retry and backoff mechanisms for handling Google Sheets API rate limits.",
+      "PostgreSQL Row-Level Security is vastly superior to application-level tenant isolation for enterprise compliance."
+    ],
+    "decisions": [
+      {
+        "decision": "Tenant Isolation Strategy",
+        "options": [
+          "Application-level filtering",
+          "Schema per tenant",
+          "Row-Level Security (RLS)"
+        ],
+        "selected": "Row-Level Security (RLS)",
+        "reason": "Provides the strongest security guarantees natively at the database level while avoiding the maintenance overhead of managing hundreds of schemas.",
+        "tradeoff": "Requires careful connection context management to ensure the correct tenant ID is injected into every query session."
+      }
+    ],
+    "metrics": [
+      {
+        "label": "Background Sync Reliability",
+        "value": "99",
+        "unit": "%",
+        "context": "BullMQ retry mechanisms ensure Google Sheets API limits don't drop automated sync jobs."
+      }
+    ],
+    "timeline": [
+      {
+        "version": "v1.0",
+        "label": "Production Release",
+        "description": "Deployed core platform with Google Sheets sync, real-time collaborative dashboards, and Stripe tiered billing."
+      }
+    ],
+    "brandColor": "#E53E3E",
+    "images": []
+  },
+  {
+    "id": 1,
+    "slug": "ad-astra",
+    "title": "Ad-Astra",
+    "subtitle": "AI Clinical Triage Platform",
+    "problem": "Clinical triage fails in low-resource, low-connectivity environments.",
+    "solution": "Engineered an offline-first PWA leveraging Google Gemini 2.0 for multi-modal (vision + conversation) dermatological triage. Implemented aggressive queueing for offline resilience.",
+    "tech": [
+      "React",
+      "Node.js",
+      "Gemini 2.0 VLM",
+      "Express",
+      "MongoDB"
+    ],
+    "results": "Supports 9 regional languages. Won Hackathon.",
+    "github": "https://github.com/Garvit-Sharmaa/Ad-Astra",
+    "status": "Deployed",
+    "hotPath": "The system utilizes an offline-first service worker that queues multi-modal diagnostic requests (images + text) when internet connectivity drops, resolving them seamlessly via background sync once connectivity is restored.",
+    "postMortem": "Initially, passing base64 strings to the Gemini API caused severe memory leaks on low-end mobile devices. We rewrote the pipeline to handle binary blobs directly, reducing memory overhead by 60%.",
+    "concepts": [
+      "Offline-First",
+      "PWA",
+      "LLM Inference",
+      "Queue Architecture",
+      "Multi-modal AI",
+      "Healthcare AI"
+    ],
+    "relatedSlugs": [
+      "typeforge",
+      "promptkit"
+    ],
+    "insights": [
+      "The offline queue was the hardest engineering problem. Without it, a network drop during triage would silently discard a patient's diagnostic data.",
+      "Multi-modal inference (vision + text simultaneously) requires careful context window management to prevent token overflow on long sessions."
+    ],
+    "decisions": [
+      {
+        "decision": "AI Model Selection",
+        "options": [
+          "GPT-4o Vision",
+          "Gemini 2.0 VLM",
+          "LLaVA (local)"
+        ],
+        "selected": "Gemini 2.0 VLM",
+        "reason": "Only Gemini 2.0 supported multi-modal input (image + text simultaneously) with the required free-tier API quota for a hackathon prototype. GPT-4o Vision was evaluated but rate-limited too aggressively for concurrent triage sessions.",
+        "tradeoff": "Vendor lock-in to Google's inference infrastructure. Mitigated by abstracting the model layer behind an interface."
+      },
+      {
+        "decision": "Offline Strategy",
+        "options": [
+          "No offline support",
+          "LocalStorage cache",
+          "Service Worker + Background Sync"
+        ],
+        "selected": "Service Worker + Background Sync",
+        "reason": "The target environment is rural clinics with intermittent 2G connectivity. LocalStorage cannot queue POST requests. Only a service worker with Background Sync API guarantees request delivery after connectivity restores.",
+        "tradeoff": "Service workers add significant complexity and are difficult to debug. Accepted because data loss in a clinical context is not acceptable."
+      },
+      {
+        "decision": "Database",
+        "options": [
+          "PostgreSQL",
+          "MongoDB",
+          "SQLite (local)"
+        ],
+        "selected": "MongoDB",
+        "reason": "Diagnostic records have variable schema — dermatological cases include different metadata than respiratory cases. MongoDB's document model accommodates this without requiring schema migrations. Constraint: 48-hour hackathon timeline made schema design iteration expensive.",
+        "tradeoff": "Weaker consistency guarantees vs. PostgreSQL. Acceptable for a prototype; v2 would migrate to a schema-per-condition PostgreSQL design."
+      }
+    ],
+    "metrics": [
+      {
+        "label": "Memory Overhead Reduction",
+        "value": "60",
+        "unit": "%",
+        "context": "After migrating from base64 string to binary blob pipeline. Measured via Chrome DevTools Memory panel on a Redmi 9 (3GB RAM)."
+      },
+      {
+        "label": "Regional Languages Supported",
+        "value": "9",
+        "unit": "languages",
+        "context": "Including Hindi, Gujarati, Tamil, Telugu, Kannada, Malayalam, Bengali, Marathi, Punjabi. Powered by Gemini's multilingual inference."
+      },
+      {
+        "label": "Offline Queue Reliability",
+        "value": "100",
+        "unit": "% delivery",
+        "context": "Background Sync API guarantees at-least-once delivery. No triage request is lost when connectivity drops."
+      }
+    ],
+    "timeline": [
+      {
+        "version": "v1.0",
+        "label": "Hackathon MVP",
+        "description": "Online-only triage with base64 image encoding. Deployed in 48 hours. Won the hackathon. Memory leak on low-end devices identified post-submission."
+      },
+      {
+        "version": "v1.1",
+        "label": "Memory Fix",
+        "description": "Rewrote image pipeline to use binary blobs. 60% memory reduction. Fixed crashes on Redmi 9 and similarly constrained Android devices."
+      },
+      {
+        "version": "v2.0",
+        "label": "Offline-First Architecture",
+        "description": "Implemented Service Worker with Background Sync. System now survives full network disconnection without data loss. Added 9-language support."
+      },
+      {
+        "version": "Future",
+        "label": "On-Device Inference",
+        "description": "Replace Gemini API dependency with a quantized LLaVA model running via WebGPU. Eliminates the API rate-limit bottleneck and enables fully offline AI inference."
+      }
+    ],
+    "brandColor": "#E53E3E",
+    "images": []
+  },
+  {
+    "id": 2,
+    "slug": "typeforge",
+    "title": "TypeForge",
+    "subtitle": "Zero-Latency Typing Engine",
+    "problem": "Standard React typing apps suffer from per-keystroke re-render latency.",
+    "solution": "Architected a zero-render hot path using direct DOM mutation via refs. Serverless async background jobs via QStash for stats processing.",
+    "tech": [
+      "Next.js 14",
+      "Zustand",
+      "Express",
+      "PostgreSQL",
+      "QStash"
+    ],
+    "results": "Achieved consistent sub-5ms input response.",
+    "github": "https://github.com/Garvit-Sharmaa/TypeForge",
+    "link": "https://typeforge-web.vercel.app/",
+    "status": "Deployed",
+    "hotPath": "Bypassed React's virtual DOM reconciliation entirely on keystrokes. Input events mutate a persistent DOM ref directly, while Zustand synchronizes the final state asynchronously.",
+    "postMortem": "Early versions relied on synchronous PostgreSQL writes for every completed test, causing Vercel serverless function timeouts. Migrated to Upstash/QStash for asynchronous, resilient job queueing.",
+    "concepts": [
+      "Zero-Latency",
+      "DOM Mutation",
+      "React Reconciler Bypass",
+      "Async Queue",
+      "Performance Engineering"
+    ],
+    "relatedSlugs": [
+      "ad-astra",
+      "promptkit"
+    ],
+    "insights": [
+      "React's reconciler is the correct default for most UIs. TypeForge bypasses it specifically for keystrokes — the one context where reconciliation latency is perceptible to humans.",
+      "QStash enables true fire-and-forget serverless jobs. The typing test result is written to PostgreSQL without ever blocking the user's session."
+    ],
+    "decisions": [
+      {
+        "decision": "State Management for Keystrokes",
+        "options": [
+          "useState (default React)",
+          "Redux",
+          "Zustand",
+          "Direct DOM mutation"
+        ],
+        "selected": "Direct DOM mutation (with Zustand for final state sync)",
+        "reason": "useState triggers a re-render on every keystroke. At 80 WPM, this is ~6 re-renders per second minimum. Each re-render involves React's reconciler diffing the virtual DOM — measurable as 8–15ms jitter on a mid-range device. The DOM ref mutation path is synchronous and costs ~0.1ms.",
+        "tradeoff": "Direct DOM mutation breaks React's unidirectional data flow contract. Mitigated by using Zustand only at test completion to sync the final accumulated string — never on each character."
+      },
+      {
+        "decision": "Stats Persistence Strategy",
+        "options": [
+          "Synchronous PostgreSQL write on test end",
+          "Fire-and-forget fetch to API route",
+          "QStash async job queue"
+        ],
+        "selected": "QStash async job queue",
+        "reason": "Vercel serverless functions have a 10-second execution limit on the free tier. Synchronous PostgreSQL writes on test completion were hitting this limit during traffic spikes, causing 504 timeouts. QStash enqueues the write job and returns 200 immediately.",
+        "tradeoff": "Stats are eventually consistent — there is a 100–500ms delay between test completion and database write. Acceptable for analytics; would not be acceptable for financial transactions."
+      },
+      {
+        "decision": "Frontend Framework",
+        "options": [
+          "Vanilla JS",
+          "React (CRA)",
+          "Next.js 14"
+        ],
+        "selected": "Next.js 14",
+        "reason": "Required server-side leaderboard rendering for SEO and initial load performance. App Router's React Server Components allow the leaderboard to be rendered at the edge without client-side JavaScript for the initial paint.",
+        "tradeoff": "Next.js 14 App Router was in RC at time of development. Encountered several breaking changes in router cache behavior. Added 2 days of debugging overhead."
+      }
+    ],
+    "metrics": [
+      {
+        "label": "Input Response Latency",
+        "value": "< 5",
+        "unit": "ms",
+        "context": "Measured via Chrome DevTools Performance panel. Time from keydown event to visible DOM character render. Baseline React useState: 12–18ms on the same hardware."
+      },
+      {
+        "label": "Serverless Timeout Rate",
+        "value": "0",
+        "unit": "% (post-QStash)",
+        "context": "Previous synchronous write strategy produced 504 timeouts during load tests. Zero timeouts observed after QStash migration across 200 simulated concurrent test completions."
+      },
+      {
+        "label": "Initial Page Load (LCP)",
+        "value": "0.8",
+        "unit": "s",
+        "context": "Lighthouse audit on hosted Vercel deployment. Leaderboard rendered via RSC at edge, eliminating client-side data fetch on first load."
+      }
+    ],
+    "timeline": [
+      {
+        "version": "v1.0",
+        "label": "React useState MVP",
+        "description": "Standard React typing test with useState per character. Functional but showed 12–18ms keystroke latency measured via DevTools. Latency was perceptible."
+      },
+      {
+        "version": "v1.5",
+        "label": "DOM Mutation Hot Path",
+        "description": "Replaced useState with direct DOM ref mutation for the keystroke path. Latency dropped to <5ms consistently. React's reconciler is now only invoked at test end."
+      },
+      {
+        "version": "v2.0",
+        "label": "QStash Async Queue",
+        "description": "Replaced synchronous PostgreSQL writes with QStash job queue. Eliminated Vercel serverless timeouts. Stats are now written asynchronously with guaranteed delivery."
+      },
+      {
+        "version": "Future",
+        "label": "WebSocket Real-Time Multiplayer",
+        "description": "Add competitive multiplayer mode via WebSocket. Architecture: a shared typing session state on a Cloudflare Durable Object, syncing all participants' WPM in real-time."
+      }
+    ],
+    "brandColor": "#E53E3E",
+    "images": []
+  },
+  {
+    "id": 3,
+    "slug": "promptkit",
+    "title": "PromptKit",
+    "subtitle": "LLM Benchmark Suite",
+    "problem": "No systematic way to measure prompt strategy drift between GPT-4o and Gemini.",
+    "solution": "Built an automated benchmark suite testing 15+ prompt strategies in parallel across multiple model endpoints.",
+    "tech": [
+      "OpenAI API",
+      "Gemini API",
+      "React",
+      "Node.js"
+    ],
+    "results": "Yielded 38% better output relevance for specific tasks.",
+    "github": "https://github.com/Garvit-Sharmaa",
+    "status": "Archived",
+    "hotPath": "Engineered a concurrent fan-out testing harness that fires 15+ API requests simultaneously while handling rate-limit backoffs intelligently.",
+    "postMortem": "Parallel requests triggered severe rate-limiting from OpenAI. Implemented an exponential backoff jitter algorithm to stabilize the test runner.",
+    "concepts": [
+      "LLM Benchmarking",
+      "Prompt Engineering",
+      "Concurrent Requests",
+      "Rate Limiting",
+      "Exponential Backoff"
+    ],
+    "relatedSlugs": [
+      "ad-astra"
+    ],
+    "insights": [
+      "Prompt strategy is not intuitive. A chain-of-thought prompt outperforms a direct instruction prompt by 38% for diagnostic tasks — but only for Gemini, not GPT-4o.",
+      "Exponential backoff with jitter (not linear backoff) is critical for concurrent API harnesses. Linear backoff causes thundering herd re-strikes against the rate limiter."
+    ],
+    "decisions": [
+      {
+        "decision": "Request Concurrency Model",
+        "options": [
+          "Sequential requests (one at a time)",
+          "Promise.all (fully parallel)",
+          "Controlled concurrency with p-limit"
+        ],
+        "selected": "Controlled concurrency with p-limit",
+        "reason": "Sequential requests would take 15+ minutes for a full benchmark run (15 strategies × 3 models × avg 8s response time). Fully parallel Promise.all immediately triggered rate limits on all three providers. p-limit with a concurrency of 3 balanced throughput against rate limit headroom.",
+        "tradeoff": "Benchmark runs take 4–6 minutes instead of the theoretical minimum. Acceptable because accuracy (not speed) is the output that matters."
+      },
+      {
+        "decision": "Backoff Algorithm",
+        "options": [
+          "Fixed delay (e.g., 1s between retries)",
+          "Linear backoff",
+          "Exponential backoff with jitter"
+        ],
+        "selected": "Exponential backoff with jitter",
+        "reason": "Fixed and linear backoff produce thundering herd effects — all retried requests fire simultaneously, immediately re-triggering the rate limit. Jitter randomizes the retry window (delay = base × 2^attempt + random(0, 100ms)), distributing retries across time.",
+        "tradeoff": "More complex implementation than fixed delay. The math must be correct; incorrect jitter ranges still produce herd behavior."
+      },
+      {
+        "decision": "Result Storage",
+        "options": [
+          "In-memory only",
+          "JSON file output",
+          "PostgreSQL database"
+        ],
+        "selected": "JSON file output",
+        "reason": "PromptKit was built for personal research, not multi-user access. A database adds infrastructure overhead (connection pooling, schema migrations) that adds zero value for a single-researcher tool. JSON files are version-controllable, human-readable, and diff-able.",
+        "tradeoff": "Does not scale to multiple concurrent users or large benchmark histories. The tool was archived rather than scaled — the research objective was achieved."
+      }
+    ],
+    "metrics": [
+      {
+        "label": "Output Relevance Improvement",
+        "value": "38",
+        "unit": "% (Gemini, diagnostic tasks)",
+        "context": "Chain-of-thought prompting vs. direct instruction prompting. Measured via human evaluation rubric across 50 standardized test cases. GPT-4o showed only 4% improvement with the same strategy."
+      },
+      {
+        "label": "Prompt Strategies Tested",
+        "value": "15+",
+        "unit": "strategies",
+        "context": "Including zero-shot, few-shot (1,3,5-shot), chain-of-thought, tree-of-thought, role prompting, and structured output variants."
+      },
+      {
+        "label": "Rate Limit Stability (post-jitter)",
+        "value": "98",
+        "unit": "% success rate",
+        "context": "Across 500 benchmark runs after implementing exponential backoff with jitter. Previous linear backoff strategy: ~62% success rate."
+      }
+    ],
+    "timeline": [
+      {
+        "version": "v1.0",
+        "label": "Sequential Benchmark Runner",
+        "description": "Ran prompts sequentially, one at a time. A full 15-strategy benchmark took 18+ minutes. Functional but unusable for rapid iteration."
+      },
+      {
+        "version": "v1.5",
+        "label": "Parallel Fan-Out (Failed)",
+        "description": "Replaced sequential with Promise.all. Benchmark time dropped to 4 minutes but immediately triggered rate limits on all providers. Success rate collapsed to <40%."
+      },
+      {
+        "version": "v2.0",
+        "label": "Controlled Concurrency + Jitter",
+        "description": "Implemented p-limit (concurrency=3) and exponential backoff with jitter. Benchmark time: 4–6 minutes. Rate limit success rate: 98%. Project archived after research objective achieved."
+      },
+      {
+        "version": "Future",
+        "label": "Open-Source CLI Tool",
+        "description": "Refactor into a Node.js CLI package (npx promptkit benchmark). Accept any OpenAI-compatible endpoint. Publish to npm for community use."
+      }
+    ],
+    "brandColor": "#E53E3E",
+    "images": []
+  }
+]
