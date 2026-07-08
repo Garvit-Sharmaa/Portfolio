@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'next';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Error({
