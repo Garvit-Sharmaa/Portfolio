@@ -98,7 +98,7 @@ export default function CinematicAbout() {
               <Mail size={18} className="text-[#E53E3E]" />
               <div>
                 <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.4)" }}>Email</div>
-                <div style={{ fontSize: "13px", fontWeight: 600, color: "#fff" }}>garvitsharma015@gmail.com</div>
+                <div style={{ fontSize: "13px", fontWeight: 600, color: "#fff" }}>garvitsharmaa015@gmail.com</div>
               </div>
             </div>
           </div>

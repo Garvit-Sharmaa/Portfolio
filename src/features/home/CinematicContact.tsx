@@ -164,7 +164,7 @@ export default function CinematicContact() {
                 <Mail size={18} className="text-[#E53E3E] mt-1" />
                 <div>
                   <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", marginBottom: "2px" }}>Email</div>
-                  <div style={{ fontSize: "13px", fontWeight: 500, color: "#fff", marginBottom: "4px" }}>garvitsharma015@gmail.com</div>
+                  <div style={{ fontSize: "13px", fontWeight: 500, color: "#fff", marginBottom: "4px" }}>garvitsharmaa015@gmail.com</div>
                   <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.3)" }}>Best for detailed inquiries</div>
                 </div>
               </div>
