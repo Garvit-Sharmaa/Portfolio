@@ -1,44 +1,38 @@
-import Link from "next/link";
-import { Terminal, ArrowLeft } from "lucide-react";
+'use client';
+
+import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-background flex items-center justify-center p-6 relative overflow-hidden">
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-error/5 via-background to-background pointer-events-none" />
-      
-      <div className="relative z-10 w-full max-w-lg">
-        <div className="bg-surface1 border border-border-subtle rounded-lg overflow-hidden shadow-2xl flex flex-col">
-          {/* Terminal Header */}
-          <div className="w-full h-10 bg-surface2 border-b border-border-subtle flex items-center px-4 gap-2">
-            <div className="w-3 h-3 rounded-full bg-error/80" />
-            <div className="w-3 h-3 rounded-full bg-warning/80" />
-            <div className="w-3 h-3 rounded-full bg-success/80" />
-            <div className="ml-4 text-xs font-mono text-foreground/40 flex items-center gap-2">
-              <Terminal className="w-3 h-3" />
-              error — 404
-            </div>
-          </div>
-          
-          {/* Terminal Body */}
-          <div className="p-8 font-mono text-sm leading-relaxed whitespace-pre-wrap">
-            <p className="text-error mb-4">
-              <span className="font-bold">[404] Node not found.</span>
-            </p>
-            <p className="text-foreground/70 mb-8">
-              The requested route has been deprecated or moved.<br />
-              Please check the path or return to root.
-            </p>
-            
-            <Link 
-              href="/" 
-              className="inline-flex items-center gap-2 text-teal hover:text-white transition-colors focus:ring-2 focus:ring-teal focus:outline-none rounded interactive"
-            >
-              <ArrowLeft className="w-4 h-4" strokeWidth={1.5} /> 
-              return to /home;
-            </Link>
-          </div>
+    <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center p-4 relative overflow-hidden">
+      {/* Background Grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
+
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="flex flex-col items-center z-10"
+      >
+        <div className="text-[120px] md:text-[200px] font-bold font-sans text-white/5 leading-none tracking-tighter select-none">
+          404
         </div>
-      </div>
-    </main>
+        <div className="text-center -mt-8 md:-mt-12 space-y-6">
+          <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
+            System Route Not Found
+          </h1>
+          <p className="text-white/40 text-sm md:text-base max-w-md mx-auto font-mono">
+            The requested module could not be located in the production environment.
+          </p>
+          <Link 
+            href="/"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 text-white/70 hover:text-white rounded text-xs font-semibold tracking-[0.2em] uppercase transition-colors border border-white/10"
+          >
+            Initialize Reboot
+          </Link>
+        </div>
+      </motion.div>
+    </div>
   );
 }

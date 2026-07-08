@@ -11,10 +11,9 @@ export default function CinematicHero({ onNavigate }: { onNavigate?: (view: stri
       animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
       exit={{ opacity: 0, x: -40, filter: "blur(4px)" }}
       transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="absolute inset-0 z-10 flex flex-col justify-center pointer-events-none"
-      style={{ paddingLeft: "44px", paddingBottom: "20px" }}
+      className="absolute inset-0 z-10 flex flex-col justify-center pointer-events-none px-6 pb-20 md:px-11 md:pb-5"
     >
-      <div className="pointer-events-auto" style={{ maxWidth: "440px" }}>
+      <div className="pointer-events-auto w-full md:max-w-[440px]">
         {/* Eyebrow */}
         <motion.p
           initial={{ opacity: 0, y: 14 }}
@@ -38,21 +37,15 @@ export default function CinematicHero({ onNavigate }: { onNavigate?: (view: stri
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-          style={{
-            fontSize: "clamp(56px, 7.2vw, 76px)",
-            fontWeight: 800,
-            lineHeight: 1.0,
-            letterSpacing: "-0.02em",
-            color: "#ffffff",
-            margin: "0 0 16px 0",
-            whiteSpace: "nowrap",
-          }}
+          className="text-[clamp(42px,11vw,76px)] font-[800] leading-[1.05] md:leading-[1.0] tracking-[-0.02em] text-white mb-4 whitespace-normal md:whitespace-nowrap"
         >
           AI Engineer
-          <br />
-          &amp; Full Stack
-          <br />
-          Developer
+          <br className="hidden md:block" />
+          <span className="md:hidden"> &amp; </span>
+          <span className="hidden md:inline">&amp; Full Stack</span>
+          <br className="hidden md:block" />
+          <span className="md:hidden">Full Stack Developer</span>
+          <span className="hidden md:inline">Developer</span>
         </motion.h1>
 
         {/* Body */}

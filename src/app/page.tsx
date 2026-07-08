@@ -2,6 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import BootSequence from "@/features/boot/BootSequence";
 import SpatialCanvas from "@/features/canvas/SpatialCanvas";
 import CinematicHero from "@/features/home/CinematicHero";
@@ -19,6 +20,7 @@ export default function Home() {
   const [booted, setBooted] = useState(false);
   const [showGraph, setShowGraph] = useState(false);
   const [activeView, setActiveView] = useState<ActiveView>("hero");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <main 
@@ -96,8 +98,7 @@ export default function Home() {
 
             {/* ─── GLOBAL HEADER ────────────────────────────────────────────────────── */}
             <header
-              className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between pointer-events-auto"
-              style={{ padding: "28px 44px" }}
+              className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between pointer-events-auto px-6 py-5 md:px-11 md:py-7"
             >
               <button
                 onClick={() => setActiveView("hero")}
@@ -173,12 +174,66 @@ export default function Home() {
                   />
                 </div>
               </nav>
+
+              <button 
+                className="md:hidden text-white hover:text-[#E53E3E] transition-colors"
+                onClick={() => setIsMobileMenuOpen(true)}
+              >
+                <Menu size={24} />
+              </button>
             </header>
+
+            {/* ─── MOBILE MENU OVERLAY ──────────────────────────────────────────────── */}
+            <AnimatePresence>
+              {isMobileMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center pointer-events-auto"
+                >
+                  <button 
+                    className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <X size={32} />
+                  </button>
+                  <div className="flex flex-col items-center gap-10">
+                    {[
+                      { label: "About", id: "about" as ActiveView },
+                      { label: "Work", id: "projects" as ActiveView },
+                      { label: "Capabilities", id: "capabilities" as ActiveView },
+                      { label: "Achievements", id: "achievements" as ActiveView },
+                      { label: "Contact", id: "contact" as ActiveView },
+                    ].map(({ label, id }) => (
+                      <button
+                        key={label}
+                        onClick={() => {
+                          setActiveView(id);
+                          setIsMobileMenuOpen(false);
+                        }}
+                        style={{
+                          fontSize: "28px",
+                          fontWeight: 700,
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          color: activeView === id ? "#ffffff" : "rgba(255,255,255,0.4)",
+                          background: "none",
+                          border: "none",
+                        }}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* ─── GLOBAL FOOTER ────────────────────────────────────────────────────── */}
             <div
-              className="absolute z-50 pointer-events-auto"
-              style={{ bottom: "44px", left: "44px" }}
+              className="absolute z-50 pointer-events-auto bottom-6 left-6 md:bottom-11 md:left-11"
             >
               <div
                 className="flex items-center"
@@ -251,8 +306,8 @@ export default function Home() {
 
             {/* ─── GLOBAL SCROLL INDICATOR ─────────────────────────────────────────── */}
             <div
-              className="absolute z-50 hidden md:flex flex-col items-center pointer-events-none"
-              style={{ right: "44px", top: "55%", transform: "translateY(-50%)" }}
+              className="absolute z-50 hidden md:flex flex-col items-center pointer-events-none right-6 md:right-11"
+              style={{ top: "55%", transform: "translateY(-50%)" }}
             >
               <span
                 style={{

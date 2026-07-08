@@ -28,7 +28,7 @@
     ],
     "relatedSlugs": [
       "nexura-solutions",
-      "typeforge"
+      "keystra"
     ],
     "insights": [
       "LiveKit SFU architecture requires O(n) bandwidth scaling instead of the O(n²) scaling of WebRTC mesh networks, saving immense client-side resources.",
@@ -99,7 +99,7 @@
       "Stripe Billing"
     ],
     "relatedSlugs": [
-      "typeforge"
+      "keystra"
     ],
     "insights": [
       "BullMQ on Redis provides crucial retry and backoff mechanisms for handling Google Sheets API rate limits.",
@@ -134,7 +134,56 @@
       }
     ],
     "brandColor": "#E53E3E",
-    "images": []
+    "images": [
+      {
+        "src": "/Nexura Solution/page01.png",
+        "explanation": "Project Overview & Enterprise Architecture - Nexura Solutions is a highly scalable, multi-tenant enterprise SaaS platform designed to streamline complex data operations, billing, and automated workflows. The core architectural challenge was maintaining strict data isolation between tenants while allowing for real-time collaborative features and seamless third-party API integrations (like Google Sheets and Stripe). Built on a robust Next.js and NestJS stack, the application enforces Row-Level Security (RLS) directly at the PostgreSQL database level. This guarantees that even if an application-level vulnerability occurs, tenants cannot physically query data outside their organizational ID. The system also features a robust background job processing engine powered by BullMQ, ensuring that long-running tasks, such as massive data synchronization or automated billing runs, are executed reliably without blocking the main event loop."
+      },
+      {
+        "src": "/Nexura Solution/page02.png",
+        "explanation": "Authentication & Identity Management - The secure entry point for enterprise users. Nexura utilizes a sophisticated authentication flow supporting both standard JWT-based sessions and enterprise SSO (Single Sign-On) via SAML/OAuth2. Passwords are hashed using the Argon2id algorithm, providing state-of-the-art resistance against GPU-based cracking attempts. Upon successful authentication, the backend issues short-lived, cryptographically signed access tokens alongside HTTP-only refresh tokens. This architecture mitigates the risk of XSS (Cross-Site Scripting) token theft while maintaining a seamless user experience. Furthermore, every authenticated request is routed through a rate-limiting middleware backed by Redis to prevent brute-force attacks and abuse."
+      },
+      {
+        "src": "/Nexura Solution/page03.png",
+        "explanation": "Role-Based Access Control (RBAC) & Governance - The internal administrative dashboard for managing user permissions. Nexura implements a granular RBAC system where permissions are evaluated dynamically at both the API gateway and the database layer. Users are assigned roles (e.g., Admin, Editor, Viewer), and each role contains a bitmask of specific privileges. When a request hits the NestJS backend, a custom AuthGuard intercepts the request, decodes the JWT, and verifies the privilege bitmask against the requested resource route. If the user attempts an unauthorized action, the request is immediately terminated before any business logic is executed, ensuring strict zero-trust security."
+      },
+      {
+        "src": "/Nexura Solution/page04.png",
+        "explanation": "Custom Workflow Builder & AST Evaluation - The visual logic builder allows enterprise clients to create custom automated workflows without writing code. This is one of the most computationally complex features in the platform. When a user constructs a workflow in the UI, the frontend generates a JSON-based Abstract Syntax Tree (AST) representing the logical nodes and execution paths. The backend engine parses this AST, validates it against a strict schema to prevent infinite loops or malicious payloads, and compiles it into an executable directed acyclic graph (DAG). During execution, each node in the DAG is processed asynchronously, with built-in retry mechanisms and dead-letter queues for robust error handling."
+      },
+      {
+        "src": "/Nexura Solution/page05.png",
+        "explanation": "Stripe Billing Integration & Webhook Processing - The financial nerve center of the application. Nexura relies on Stripe for subscription management and metered billing. To ensure data consistency between the Nexura database and Stripe's servers, the architecture relies heavily on idempotent webhook processing. When an event occurs (e.g., a successful invoice payment), Stripe fires a webhook to the Nexura backend. The system first cryptographically verifies the webhook signature to prevent spoofing. It then checks a Redis-backed idempotency key cache to ensure the event hasn't already been processed. Only then does it update the local PostgreSQL database, granting or revoking access to premium features based on the customer's payment status."
+      },
+      {
+        "src": "/Nexura Solution/page06.png",
+        "explanation": "Real-Time Collaboration & CRDTs - This interface demonstrates the real-time collaborative capabilities of the platform, allowing multiple users to edit the same dataset simultaneously. To resolve edit conflicts without locking the database, Nexura implements Conflict-free Replicated Data Types (CRDTs). As users make changes, their edits are instantly broadcasted to other clients via WebSockets. The CRDT algorithm mathematically guarantees that all clients will eventually converge on the exact same state, regardless of the order in which the network delivered the messages. This provides a Google Docs-like experience with zero centralized lock contention."
+      },
+      {
+        "src": "/Nexura Solution/page07.png",
+        "explanation": "Google Sheets Two-Way Synchronization - The integration dashboard for configuring third-party data syncs. The Google Sheets integration is engineered for extreme resilience. Because the Google API enforces strict rate limits and is prone to intermittent network failures, Nexura does not attempt synchronous data pushes. Instead, sync requests are pushed onto a BullMQ distributed queue. Dedicated worker nodes consume these jobs, utilizing exponential backoff algorithms if they encounter 429 Too Many Requests errors. Furthermore, the system hashes the payload of each row to detect exact changes, ensuring that only modified data is sent over the wire, drastically reducing bandwidth and API consumption."
+      },
+      {
+        "src": "/Nexura Solution/page08.png",
+        "explanation": "Notification Dispatch Center - The centralized hub for routing alerts, emails, and in-app notifications. In an enterprise environment, users can easily be overwhelmed by alert fatigue. To combat this, the Dispatch Center implements an intelligent event aggregation system. Rather than firing an email for every single minor event, the system buffers non-critical notifications in Redis for a configurable time window. Once the window closes, it batches the events into a single, comprehensive digest email. Critical alerts (like security breaches or failed billing) bypass this buffer and are dispatched immediately via high-priority WebSocket channels and SMS."
+      },
+      {
+        "src": "/Nexura Solution/page09.png",
+        "explanation": "API Key Generation & Developer Portal - The interface for programmatic access to the Nexura platform. Security is paramount here. When a user generates an API key, the system generates a cryptographically secure random string. This string is displayed to the user exactly once. Before storing it in the PostgreSQL database, it is hashed using Argon2, exactly like a password. This means that even if the database is completely compromised, the attacker cannot recover the raw API keys to impersonate users. When an API request is received, the system hashes the provided key and performs a constant-time string comparison to authenticate the request, preventing timing attacks."
+      },
+      {
+        "src": "/Nexura Solution/page10.png",
+        "explanation": "Resource Utilization Monitoring - The telemetry dashboard for system administrators. This interface provides real-time visibility into the platform's health. The data powering these graphs is collected via a specialized Prometheus metrics pipeline. Every microservice within the Nexura ecosystem exposes a `/metrics` endpoint. A Prometheus server scrapes these endpoints at regular intervals, aggregating data on CPU usage, memory consumption, query latency, and error rates. The frontend then queries this time-series database to render the visualizations. To protect the platform from noisy neighbor issues, hard rate limits are enforced at the ingress layer based on this real-time utilization data."
+      },
+      {
+        "src": "/Nexura Solution/page11.png",
+        "explanation": "System Configuration & Caching Layer - The administrative settings panel. Changes made here can drastically alter the behavior of the entire application. To ensure that configuration updates are propagated instantly without requiring a full system restart, Nexura utilizes a Redis-based caching strategy. The backend services hold a localized, in-memory copy of the configuration. When an admin updates a setting in the UI, the backend writes the new value to PostgreSQL and immediately publishes an invalidation event to a Redis Pub/Sub channel. All connected services receive this event instantly, flushing their localized cache and pulling the latest configuration from the database on their next execution cycle."
+      },
+      {
+        "src": "/Nexura Solution/page12.png",
+        "explanation": "Data Export & Background Processing - The interface for downloading massive datasets. Generating multi-gigabyte CSV exports is a highly CPU-intensive task that would instantly crash a standard Node.js server if processed synchronously. When a user requests an export, the backend immediately returns a 202 Accepted status and enqueues an export job. A separate fleet of worker microservices picks up the job, streaming the data directly from the PostgreSQL cursor into an AWS S3 bucket in chunks. Once the upload is complete, the worker generates a pre-signed, time-limited S3 download URL and sends it to the user via the Notification Dispatch Center, ensuring the main application servers remain completely unburdened."
+      }
+    ]
   },
   {
     "id": 1,
@@ -164,7 +213,7 @@
       "Healthcare AI"
     ],
     "relatedSlugs": [
-      "typeforge",
+      "keystra",
       "promptkit"
     ],
     "insights": [
@@ -253,8 +302,8 @@
   },
   {
     "id": 2,
-    "slug": "typeforge",
-    "title": "TypeForge",
+    "slug": "keystra",
+    "title": "Keystra",
     "subtitle": "Zero-Latency Typing Engine",
     "problem": "Standard React typing apps suffer from per-keystroke re-render latency.",
     "solution": "Architected a zero-render hot path using direct DOM mutation via refs. Serverless async background jobs via QStash for stats processing.",
@@ -266,8 +315,8 @@
       "QStash"
     ],
     "results": "Achieved consistent sub-5ms input response.",
-    "github": "https://github.com/Garvit-Sharmaa/TypeForge",
-    "link": "https://typeforge-web.vercel.app/",
+    "github": "https://github.com/Garvit-Sharmaa/Keystra",
+    "link": "https://keystra-web.vercel.app/",
     "status": "Deployed",
     "hotPath": "Bypassed React's virtual DOM reconciliation entirely on keystrokes. Input events mutate a persistent DOM ref directly, while Zustand synchronizes the final state asynchronously.",
     "postMortem": "Early versions relied on synchronous PostgreSQL writes for every completed test, causing Vercel serverless function timeouts. Migrated to Upstash/QStash for asynchronous, resilient job queueing.",
@@ -283,7 +332,7 @@
       "promptkit"
     ],
     "insights": [
-      "React's reconciler is the correct default for most UIs. TypeForge bypasses it specifically for keystrokes — the one context where reconciliation latency is perceptible to humans.",
+      "React's reconciler is the correct default for most UIs. Keystra bypasses it specifically for keystrokes — the one context where reconciliation latency is perceptible to humans.",
       "QStash enables true fire-and-forget serverless jobs. The typing test result is written to PostgreSQL without ever blocking the user's session."
     ],
     "decisions": [
@@ -365,7 +414,44 @@
       }
     ],
     "brandColor": "#E53E3E",
-    "images": []
+    "images": [
+      {
+        "src": "/Keystra/page01.jpeg",
+        "explanation": "Project Overview & Architecture - Keystra is a high-performance, zero-latency typing engine designed to eliminate the inherent input lag found in standard React applications. The core problem it solves is the perceptible 15-20ms jitter caused by React's virtual DOM reconciliation during rapid keystrokes (80+ WPM). To achieve this, Keystra completely bypasses the standard React state cycle (useState) for the typing hot-path. Instead, it utilizes direct DOM reference mutations, achieving a consistent sub-5ms input response time. The application is built on Next.js 14 utilizing the App Router for instantaneous LCP via React Server Components. State synchronization is deferred until the test completes, where a Zustand store aggregates the final metrics. To prevent database timeouts under high concurrency, backend persistence is decoupled using a QStash asynchronous queue, ensuring resilient fire-and-forget writes to a PostgreSQL database."
+      },
+      {
+        "src": "/Keystra/page02.jpeg",
+        "explanation": "Zero-Latency Typing Hot-Path - This interface represents the core typing engine where the architectural deviation from standard React is most pronounced. In a typical React app, every keystroke triggers a state update, causing a virtual DOM diff and a re-render. At high typing speeds, this blocks the main thread. Keystra circumvents this by attaching a direct DOM ref to the input container. On keydown events, standard DOM manipulation APIs (element.textContent) are used to instantly mutate the character classes (e.g., changing a character to correct or incorrect colors) in under 0.1ms. The React reconciler is completely oblivious to these changes during the active typing phase, only stepping in once the test is explicitly terminated to render the final results screen."
+      },
+      {
+        "src": "/Keystra/page03.jpeg",
+        "explanation": "Real-Time Telemetry & Metric Calculation - As the user types, a decoupled logic loop calculates gross WPM, net WPM, accuracy, and error rate in real-time. To ensure these mathematical operations do not interfere with the DOM mutation hot-path, the calculations are mathematically optimized to rely on timestamp deltas rather than complex array traversals. The UI elements displaying these live metrics are isolated in their own memoized React components or updated via separate DOM refs. This guarantees that updating the WPM counter on the screen does not accidentally trigger a re-render of the entire text block, maintaining the strict zero-latency requirement."
+      },
+      {
+        "src": "/Keystra/page04.png",
+        "explanation": "Diagnostic Heatmap & Weak-Key Analysis - This visualization represents the system's ability to build a statistical model of the user's typing profile. Under the hood, Keystra records the exact millisecond timestamp of every individual keystroke. By calculating the delta between key presses, the engine constructs a rolling average latency per character. When a character's latency crosses a specific standard deviation threshold (indicating hesitation or physical finger travel inefficiency), it is flagged on this heatmap. This data is then serialized and sent to the backend, allowing future dynamic lesson generation to disproportionately target these identified weak keys for optimized muscle memory training."
+      },
+      {
+        "src": "/Keystra/page05.jpg",
+        "explanation": "Post-Session Performance Analytics - After the typing test concludes, the application transitions back into standard React state management. The recorded telemetry arrays are passed to a client-side graphing engine. Instead of relying on heavy third-party charting libraries like Chart.js or Recharts, which would bloat the JavaScript bundle, Keystra mathematically plots the SVG paths for the velocity graph directly in the browser. This approach ensures the post-test analytics render instantly without layout shift. The graph plots the raw WPM (velocity) over time, allowing the user to visually identify consistency dips or bursts of speed throughout the test duration."
+      },
+      {
+        "src": "/Keystra/page06.png",
+        "explanation": "Multiplayer Matchmaking & Pub/Sub Architecture - The lobby interface for competitive, real-time typing races. The underlying architecture for this system relies heavily on WebSockets for persistent, low-latency connections. When a user enters the matchmaking queue, their ELO rating and region are published to a Redis-backed Pub/Sub instance. A dedicated matchmaking worker constantly scans this queue, clustering users into groups of similar skill levels within milliseconds. Once a cluster is formed, a dedicated room is instantiated, and the server broadcasts the exact synchronization timestamp and the deterministic text payload to all clients simultaneously."
+      },
+      {
+        "src": "/Keystra/page07.png",
+        "explanation": "Synchronous Live Race Protocol - The active multiplayer racing environment. Maintaining absolute fairness is critical here. Because clients can have varying network latencies and hardware capabilities, Keystra implements a custom NTP-style clock synchronization protocol during the pre-race countdown. This ensures that the race begins at the exact same millisecond for all participants, regardless of ping. During the race, clients send compressed binary packets containing their current cursor index to the server at 10Hz. The server rebroadcasts this state to the room, and client-side interpolation smooths out the movement of opponent cursors to mask any network jitter."
+      },
+      {
+        "src": "/Keystra/page08.png",
+        "explanation": "Global Leaderboards & Asynchronous Persistence - The global ranking interface. A major architectural challenge encountered in early iterations of Keystra was database locking and serverless function timeouts when hundreds of users completed tests simultaneously. To resolve this, the system was migrated to an eventual consistency model. When a test finishes, the frontend issues a non-blocking fetch request to a Vercel Edge Function, which instantly enqueues the payload into an Upstash/QStash asynchronous message queue. The queue then reliably processes the writes to the PostgreSQL database in the background at a controlled concurrency rate, completely eliminating 504 gateway timeouts and ensuring 100% data retention."
+      },
+      {
+        "src": "/Keystra/page09.png",
+        "explanation": "User Profile & Progression - The unified progression dashboard. User authentication and session management are handled securely, aggregating historical data to generate an XP-based progression curve that encourages long-term retention."
+      }
+    ]
   },
   {
     "id": 3,

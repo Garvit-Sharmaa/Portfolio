@@ -56,7 +56,7 @@ export default function CinematicAbout() {
               fontSize: "15px", fontWeight: 400, lineHeight: 1.65,
               color: "rgba(255,255,255,0.65)",
             }}>
-              I'm Garvit Sharma, an AI Engineer & Full Stack Developer who 
+              I'm Garvit Sharma (legal name Garvit Bhardwaj), an AI Engineer & Full Stack Developer who 
               loves turning ideas into impactful digital experiences. I enjoy 
               working at the intersection of AI, modern web technologies, 
               and product design.
@@ -69,7 +69,9 @@ export default function CinematicAbout() {
               <User size={18} className="text-[#E53E3E]" />
               <div>
                 <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.4)" }}>Name</div>
-                <div style={{ fontSize: "13px", fontWeight: 600, color: "#fff" }}>Garvit Sharma</div>
+                <div style={{ fontSize: "13px", fontWeight: 600, color: "#fff" }}>
+                  Garvit Sharma <span className="text-white/40 font-normal text-[11px]">(Garvit Bhardwaj)</span>
+                </div>
               </div>
             </div>
             <div className="hidden md:block w-px h-8 bg-white/5"></div>

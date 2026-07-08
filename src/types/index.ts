@@ -29,6 +29,7 @@ export interface Project {
   tech: string[];
   results: string;
   github: string;
+  link?: string;
   status: "Deployed" | "Archived" | "In Progress";
   hotPath: string;
   postMortem: string;
@@ -38,4 +39,6 @@ export interface Project {
   decisions?: Decision[];
   metrics?: Metric[];
   timeline?: TimelineEntry[];
+  brandColor?: string;
+  images?: { src: string; explanation: string }[];
 }

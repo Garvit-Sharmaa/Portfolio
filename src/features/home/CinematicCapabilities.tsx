@@ -187,7 +187,7 @@ export default function CinematicCapabilities() {
       id: "02",
       title: "Frontend Engineering",
       evidence: [
-        { text: "Engineered ultra-low latency typing interface achieving <5ms input delay by optimizing React render cycles.", project: "TYPEFORGE" },
+        { text: "Engineered ultra-low latency typing interface achieving <5ms input delay by optimizing React render cycles.", project: "KEYSTRA" },
         { text: "Developed cinematic Virtual Camera architecture with hardware-accelerated Framer Motion transitions.", project: "PROJECT AURA" },
         { text: "Integrated real-time Yjs CRDT collaborative editing and LiveKit WebRTC video routing for 100+ concurrent users.", project: "STUDYSYNC" }
       ],
@@ -207,7 +207,7 @@ export default function CinematicCapabilities() {
       title: "Databases",
       evidence: [
         { text: "Optimized complex query performance and implemented robust data normalization schemas." },
-        { text: "Utilized in-memory data stores for sub-millisecond caching of real-time leaderboard statistics.", project: "TYPEFORGE" }
+        { text: "Utilized in-memory data stores for sub-millisecond caching of real-time leaderboard statistics.", project: "KEYSTRA" }
       ],
       tech: ["PostgreSQL", "MongoDB", "Prisma", "Redis", "Normalization", "Indexing"]
     },

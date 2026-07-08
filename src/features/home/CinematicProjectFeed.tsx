@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { ArrowUpRight, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import projectsData from "@/content/projects.json";
+import type { Project } from "@/types";
+import CinematicProjectModal from "./CinematicProjectModal";
 
 type FilterKey = "ALL" | "AI/ML" | "FULL STACK" | "DESIGN";
 
@@ -69,20 +72,37 @@ function AdAstraMockup() {
   );
 }
 
-function TypeForgeMockup() {
+function TypeForgeMockup({ brandColor = "#E53E3E" }: { brandColor?: string }) {
   return (
     <div className="w-full h-full bg-[#0d0d0d] flex flex-col overflow-hidden">
       <div className="flex items-center gap-1.5 px-3 py-2 bg-[#1a1a1a] border-b border-white/5">
-        <div className="w-2 h-2 rounded-full bg-[#E53E3E]/60" />
+        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: brandColor, opacity: 0.6 }} />
         <div className="w-2 h-2 rounded-full bg-white/20" />
         <div className="w-2 h-2 rounded-full bg-white/20" />
-        <div className="flex-1 mx-3 bg-white/5 rounded text-[7px] text-white/30 px-2 py-0.5">typeforge.dev</div>
-        <div className="text-[7px] text-green-400 font-bold">&lt;5ms</div>
+        <div className="flex-1 mx-3 bg-white/5 rounded text-[7px] text-white/30 px-2 py-0.5">keystra.app</div>
+        <motion.div 
+          animate={{ opacity: [1, 0.5, 1] }} 
+          transition={{ duration: 2, repeat: Infinity }}
+          className="text-[7px] font-bold"
+          style={{ color: brandColor }}
+        >
+          &lt;5ms
+        </motion.div>
       </div>
       <div className="flex flex-col p-4 gap-3 flex-1">
         {/* Stats row */}
         <div className="flex gap-3">
-          {[["94", "WPM"], ["98%", "ACC"], ["0", "ERR"]].map(([v, l]) => (
+          <div className="flex-1 text-center">
+            <motion.div 
+              className="text-lg font-bold text-white leading-none"
+              animate={{ opacity: [1, 0.8, 1] }}
+              transition={{ duration: 0.5, repeat: Infinity }}
+            >
+              124
+            </motion.div>
+            <div className="text-[7px] text-white/30 mt-0.5">WPM</div>
+          </div>
+          {[["98%", "ACC"], ["0", "ERR"]].map(([v, l]) => (
             <div key={l} className="flex-1 text-center">
               <div className="text-lg font-bold text-white leading-none">{v}</div>
               <div className="text-[7px] text-white/30 mt-0.5">{l}</div>
@@ -90,18 +110,30 @@ function TypeForgeMockup() {
           ))}
         </div>
         {/* Typing area */}
-        <div className="flex-1 bg-white/[0.03] rounded p-3 font-mono text-[8px] leading-relaxed">
-          <span className="text-white/70">the quick brown fox jumps </span>
-          <span className="text-[#E53E3E]">|</span>
-          <span className="text-white/20">over the lazy dog and then some more words</span>
+        <div className="flex-1 bg-white/[0.03] rounded p-3 font-mono text-[8px] leading-relaxed relative overflow-hidden">
+          <motion.div
+            initial={{ width: 0 }}
+            animate={{ width: "100%" }}
+            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            className="absolute top-0 left-0 bottom-0 bg-white/5 border-r"
+            style={{ borderRightColor: brandColor }}
+          />
+          <span className="text-white/70 relative z-10">the quick brown fox jumps </span>
+          <span className="text-white/20 relative z-10">over the lazy dog</span>
         </div>
         {/* Progress bar */}
-        <div className="w-full bg-white/5 rounded-full h-1">
-          <div className="bg-[#E53E3E] h-1 rounded-full" style={{ width: "62%" }} />
+        <div className="w-full bg-white/5 rounded-full h-1 overflow-hidden">
+          <motion.div 
+            className="h-1 rounded-full" 
+            style={{ backgroundColor: brandColor }}
+            initial={{ width: "0%" }}
+            animate={{ width: "100%" }}
+            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          />
         </div>
         {/* Leaderboard stub */}
         <div className="text-[7px] text-white/30">
-          {["#1 Alex — 112 WPM", "#2 Sam — 98 WPM", "#3 You — 94 WPM"].map((r) => (
+          {["#1 Alex — 142 WPM", "#2 Sam — 128 WPM", "#3 You — 124 WPM"].map((r) => (
             <div key={r} className="py-0.5 border-b border-white/5">{r}</div>
           ))}
         </div>
@@ -110,7 +142,7 @@ function TypeForgeMockup() {
   );
 }
 
-function PromptKitMockup() {
+function PromptKitMockup({ brandColor = "#E53E3E" }: { brandColor?: string }) {
   return (
     <div className="w-full h-full bg-[#0d0d0d] flex flex-col overflow-hidden">
       <div className="flex items-center gap-1.5 px-3 py-2 bg-[#1a1a1a] border-b border-white/5">
@@ -153,22 +185,22 @@ function PromptKitMockup() {
   );
 }
 
-function NexuraMockup() {
+function NexuraMockup({ brandColor = "#E53E3E" }: { brandColor?: string }) {
   return (
     <div className="w-full h-full bg-[#0d0d0d] flex flex-col overflow-hidden">
       <div className="flex items-center gap-1.5 px-3 py-2 bg-[#1a1a1a] border-b border-white/5">
-        <div className="w-2 h-2 rounded-full bg-[#E53E3E]/60" />
+        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: brandColor, opacity: 0.6 }} />
         <div className="w-2 h-2 rounded-full bg-white/20" />
         <div className="w-2 h-2 rounded-full bg-white/20" />
         <div className="flex-1 mx-3 bg-white/5 rounded text-[7px] text-white/30 px-2 py-0.5">nexura.app / dashboard</div>
-        <div className="text-[7px] text-[#E53E3E] font-bold">PRO TIER</div>
+        <div className="text-[7px] font-bold" style={{ color: brandColor }}>PRO TIER</div>
       </div>
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
         <div className="w-1/4 border-r border-white/5 p-3 flex flex-col gap-2 bg-black/20">
           <div className="text-[7px] text-white/40 uppercase tracking-widest mb-1">Menu</div>
           {["Dashboard", "Tenants", "Integrations", "Billing"].map((s, i) => (
-            <div key={s} className={`text-[7px] px-2 py-1 rounded ${i === 2 ? "bg-[#E53E3E]/10 text-[#E53E3E]" : "text-white/40"}`}>
+            <div key={s} className="text-[7px] px-2 py-1 rounded" style={i === 2 ? { backgroundColor: `${brandColor}20`, color: brandColor } : { color: 'rgba(255,255,255,0.4)' }}>
               {s}
             </div>
           ))}
@@ -177,26 +209,45 @@ function NexuraMockup() {
         <div className="flex-1 p-3 flex flex-col gap-3">
           <div className="flex justify-between items-end">
             <div className="text-[7px] text-white/40 uppercase tracking-widest">Active Syncs</div>
-            <div className="text-[6px] text-green-400">● Live Socket</div>
+            <motion.div 
+              animate={{ opacity: [1, 0.3, 1] }} 
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="text-[6px] text-green-400"
+            >
+              ● Live Socket
+            </motion.div>
           </div>
           
           <div className="grid grid-cols-2 gap-2">
             <div className="bg-white/5 rounded p-2">
               <div className="text-[10px] font-bold text-white">Google Sheets</div>
-              <div className="text-[6px] text-white/40 mt-1">Syncing 4,200 rows...</div>
-              <div className="w-full bg-black/50 rounded-full h-1 mt-2">
-                <div className="bg-[#E53E3E] h-1 rounded-full" style={{ width: "45%" }} />
+              <div className="text-[6px] text-white/40 mt-1">Syncing data...</div>
+              <div className="w-full bg-black/50 rounded-full h-1 mt-2 overflow-hidden relative">
+                <motion.div 
+                  className="h-1 rounded-full absolute left-0" 
+                  style={{ backgroundColor: brandColor, width: "30%" }}
+                  initial={{ x: "-100%" }}
+                  animate={{ x: "330%" }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                />
               </div>
             </div>
             <div className="bg-white/5 rounded p-2">
               <div className="text-[10px] font-bold text-white">Stripe MRR</div>
-              <div className="text-[12px] text-[#E53E3E] font-mono mt-0.5">$12.4k</div>
+              <div className="text-[12px] font-mono mt-0.5" style={{ color: brandColor }}>$12.4k</div>
             </div>
           </div>
           
-          <div className="mt-auto bg-[#E53E3E]/5 border border-[#E53E3E]/20 rounded p-2 flex justify-between items-center">
+          <div className="mt-auto border rounded p-2 flex justify-between items-center" style={{ backgroundColor: `${brandColor}05`, borderColor: `${brandColor}20` }}>
              <div className="text-[7px] text-white/60">BullMQ: Processing Jobs</div>
-             <div className="text-[7px] text-[#E53E3E] font-mono">14 active</div>
+             <motion.div 
+               className="text-[7px] font-mono" 
+               style={{ color: brandColor }}
+               animate={{ opacity: [1, 0.5, 1] }}
+               transition={{ duration: 0.5, repeat: Infinity }}
+             >
+               14 active
+             </motion.div>
           </div>
         </div>
       </div>
@@ -204,7 +255,7 @@ function NexuraMockup() {
   );
 }
 
-function StudySyncMockup() {
+function StudySyncMockup({ brandColor = "#E53E3E" }: { brandColor?: string }) {
   return (
     <div className="w-full h-full bg-[#0d0d0d] flex flex-col overflow-hidden">
       <div className="flex items-center gap-1.5 px-3 py-2 bg-[#1a1a1a] border-b border-white/5">
@@ -256,6 +307,7 @@ const FILTERS: FilterKey[] = ["ALL", "AI/ML", "FULL STACK"];
 export default function CinematicProjectFeed() {
   const [activeFilter, setActiveFilter] = useState<FilterKey>("ALL");
   const [page, setPage] = useState(1);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filtered = activeFilter === "ALL"
     ? projectsData
@@ -385,10 +437,25 @@ export default function CinematicProjectFeed() {
                   onMouseLeave={(e) =>
                     ((e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.07)")
                   }
+                  onClick={() => setSelectedProject(project as Project)}
                 >
-                  {/* Mockup Preview */}
-                  <div style={{ height: "200px", overflow: "hidden", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
-                    <MockupComponent />
+                  {/* Preview Area */}
+                  <div style={{ height: "200px", overflow: "hidden", borderBottom: "1px solid rgba(255,255,255,0.05)", position: "relative" }}>
+                    {project.images && project.images.length > 0 ? (
+                      <div className="w-full h-full relative group-hover:scale-105 transition-transform duration-700 ease-out">
+                         {/* Cinematic overlay filter */}
+                         <div className="absolute inset-0 bg-black/60 group-hover:bg-black/10 transition-colors duration-500 z-10" />
+                         <Image 
+                           src={project.slug === 'keystra' && project.images.length > 3 ? project.images[3].src : project.images[0].src} 
+                           alt={project.title}
+                           fill
+                           className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 opacity-60 group-hover:opacity-100"
+                           sizes="(max-width: 768px) 100vw, 33vw"
+                         />
+                      </div>
+                    ) : (
+                      <MockupComponent brandColor={project.brandColor || category?.color || "#E53E3E"} />
+                    )}
                   </div>
 
                   {/* Card Content */}
@@ -528,6 +595,13 @@ export default function CinematicProjectFeed() {
         </div>
 
       </div>
+
+      {selectedProject && (
+        <CinematicProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
     </motion.div>
   );
 }
