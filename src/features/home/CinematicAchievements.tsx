@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Award, Trophy, BrainCircuit } from "lucide-react";
 import { useState } from "react";
 
@@ -102,12 +103,13 @@ function AchievementCard({ title, issuer, date, description, icon, image, link, 
 
           {/* Render Certificate Image if provided */}
           {image && (
-            <div className="mt-6 border border-white/10 rounded-md overflow-hidden relative group">
+            <div className="mt-6 border border-white/10 rounded-md overflow-hidden relative group" style={{ aspectRatio: "16/9" }}>
               <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors duration-300 z-10 pointer-events-none" />
-              <img 
+              <Image 
                 src={image} 
-                alt={`${title} Certificate`} 
-                className="w-full h-auto object-cover opacity-80 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-[1.02]" 
+                alt={`${title} Certificate`}
+                fill
+                className="object-cover opacity-80 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-[1.02]" 
               />
             </div>
           )}
