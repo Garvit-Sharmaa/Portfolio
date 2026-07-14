@@ -21,7 +21,7 @@ export default function Experience() {
         <section id="experience" className="py-32 px-6 bg-background relative z-10 border-t border-white/5">
             <div className="max-w-4xl mx-auto">
                 <h2 className="text-sm tracking-widest uppercase text-neon-blue mb-16 font-mono">
-          // Experience & Proof
+                  Experience &amp; Proof
                 </h2>
 
                 <div className="space-y-16 border-l border-white/10 ml-4 pl-8 md:pl-12">

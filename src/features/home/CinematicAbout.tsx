@@ -56,7 +56,7 @@ export default function CinematicAbout() {
               fontSize: "15px", fontWeight: 400, lineHeight: 1.65,
               color: "rgba(255,255,255,0.65)",
             }}>
-              I'm Garvit Sharma (legal name Garvit Bhardwaj), an AI Engineer & Full Stack Developer who 
+              I&apos;m Garvit Sharma (legal name Garvit Bhardwaj), an AI Engineer &amp; Full Stack Developer who 
               loves turning ideas into impactful digital experiences. I enjoy 
               working at the intersection of AI, modern web technologies, 
               and product design.
@@ -115,7 +115,7 @@ export default function CinematicAbout() {
                 <p>
                   My journey started with curiosity—wondering how things work and 
                   how technology can make life better. That curiosity turned into 
-                  a passion for building. Over the years, I've explored AI, full stack 
+                  a passion for building. Over the years, I&apos;ve explored AI, full stack 
                   development, and product design, constantly learning and shipping 
                   projects that create real impact.
                 </p>

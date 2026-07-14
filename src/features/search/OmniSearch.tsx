@@ -22,10 +22,14 @@ export default function OmniSearch() {
     if (!pathname) return;
     const label = pathname === "/" ? "Home (Terminal)" : pathname.replace("/projects/", "").replace(/-/g, " ");
     const entry = { label, href: pathname };
-    setRecent((prev) => {
-      const filtered = prev.filter((r) => r.href !== pathname);
-      return [entry, ...filtered].slice(0, MAX_RECENT);
-    });
+    // Use a timeout to defer the setState call out of the effect body
+    const timer = setTimeout(() => {
+      setRecent((prev) => {
+        const filtered = prev.filter((r) => r.href !== pathname);
+        return [entry, ...filtered].slice(0, MAX_RECENT);
+      });
+    }, 0);
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   // Keyboard & custom event handlers

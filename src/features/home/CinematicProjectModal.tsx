@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
@@ -17,6 +17,18 @@ export default function CinematicProjectModal({ project, onClose }: CinematicPro
   const images = project.images || [];
   const [mounted, setMounted] = useState(false);
   
+  const handleNext = useCallback(() => {
+    if (images.length > 0) {
+      setActiveIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    }
+  }, [images.length]);
+
+  const handlePrev = useCallback(() => {
+    if (images.length > 0) {
+      setActiveIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    }
+  }, [images.length]);
+
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -26,27 +38,16 @@ export default function CinematicProjectModal({ project, onClose }: CinematicPro
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeIndex, images.length]);
+  }, [handleNext, handlePrev, onClose]);
 
   useEffect(() => {
-    setMounted(true);
+    const timer = setTimeout(() => setMounted(true), 0);
     document.body.style.overflow = "hidden";
     return () => {
+      clearTimeout(timer);
       document.body.style.overflow = "";
     };
   }, []);
-
-  const handleNext = () => {
-    if (images.length > 0) {
-      setActiveIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-    }
-  };
-
-  const handlePrev = () => {
-    if (images.length > 0) {
-      setActiveIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-    }
-  };
 
   if (!mounted) return null;
 

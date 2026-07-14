@@ -2,9 +2,9 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bot, User, X, Send, Sparkles, FolderKanban, MessageSquare } from "lucide-react";
+import { Bot, User, X, Send, FolderKanban, MessageSquare } from "lucide-react";
 import { processQuery, type AIResponse } from "@/lib/intelligenceEngine";
-import type { ChatMessage, Project } from "@/types";
+import type { ChatMessage } from "@/types";
 import { useRouter } from "next/navigation";
 
 export default function IntelligenceChat() {

@@ -22,8 +22,8 @@ export default function BootSequence({ onComplete }: { onComplete: () => void })
 
   useEffect(() => {
     if (shouldReduceMotion) {
-      setIsBooting(false);
-      return;
+      const t = setTimeout(() => setIsBooting(false), 0);
+      return () => clearTimeout(t);
     }
 
     if (currentLine < BOOT_LOGS.length) {
@@ -39,7 +39,7 @@ export default function BootSequence({ onComplete }: { onComplete: () => void })
       }, 200);
       return () => clearTimeout(finishTimer);
     }
-  }, [currentLine]);
+  }, [currentLine, shouldReduceMotion]);
 
   return (
     <AnimatePresence onExitComplete={onComplete}>

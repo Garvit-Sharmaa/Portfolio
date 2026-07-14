@@ -43,7 +43,7 @@ export default function Skills() {
         <section id="skills" className="py-32 px-6 bg-background relative z-10 border-t border-white/5">
             <div className="max-w-7xl mx-auto" ref={containerRef}>
                 <h2 className="text-sm tracking-widest uppercase text-neon-blue mb-16 font-mono">
-          // Arsenal
+                  Arsenal
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-16">

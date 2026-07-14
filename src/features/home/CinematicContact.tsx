@@ -47,7 +47,7 @@ export default function CinematicContact() {
               lineHeight: 1.05, letterSpacing: "-0.02em", color: "#ffffff",
               margin: "0 0 24px 0",
             }}>
-              Let's Build<br />
+              Let&apos;s Build<br />
               Something Impactful<span style={{ color: "#E53E3E" }}>.</span>
             </h2>
             <p style={{
@@ -55,7 +55,7 @@ export default function CinematicContact() {
               color: "rgba(255,255,255,0.6)", maxWidth: "440px",
               marginBottom: "32px"
             }}>
-              I'm always open to discussing new ideas, interesting projects, 
+              I&apos;m always open to discussing new ideas, interesting projects, 
               or opportunities to be part of your vision.
             </p>
 
@@ -78,7 +78,7 @@ export default function CinematicContact() {
               <div className="flex items-center gap-3 px-4 py-3 rounded border border-white/5 bg-white/[0.02]">
                 <Calendar size={14} className="text-white/40" />
                 <div>
-                  <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.4)" }}>Let's Connect</div>
+                  <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.4)" }}>Let&apos;s Connect</div>
                   <div style={{ fontSize: "11px", fontWeight: 600, color: "rgba(255,255,255,0.8)" }}>Say hello!</div>
                 </div>
               </div>
@@ -193,7 +193,7 @@ export default function CinematicContact() {
                   <div>
                     <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", marginBottom: "2px" }}>Schedule a Call</div>
                     <div style={{ fontSize: "13px", fontWeight: 500, color: "#fff", marginBottom: "4px" }}>Book a 30min call with me</div>
-                    <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.3)" }}>Let's discuss your project</div>
+                    <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.3)" }}>Let&apos;s discuss your project</div>
                   </div>
                 </div>
                 <ArrowRight size={16} className="text-white/20 group-hover:text-[#E53E3E] transition-colors mt-2" />
@@ -205,10 +205,10 @@ export default function CinematicContact() {
               <div className="border border-white/5 bg-black/40 backdrop-blur-md rounded-lg p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <Handshake size={16} className="text-[#E53E3E]" />
-                  <span style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.15em", color: "#fff" }}>LET'S WORK TOGETHER</span>
+                  <span style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.15em", color: "#fff" }}>LET&apos;S WORK TOGETHER</span>
                 </div>
                 <p style={{ fontSize: "13px", lineHeight: 1.6, color: "rgba(255,255,255,0.5)", marginBottom: "16px" }}>
-                  I'm currently open to full-time roles, freelance projects, and interesting collaborations.
+                  I&apos;m currently open to full-time roles, freelance projects, and interesting collaborations.
                 </p>
                 <a 
                   href="/resume.pdf" 
@@ -255,7 +255,7 @@ export default function CinematicContact() {
             rel="noopener noreferrer"
             className="flex items-center gap-3 text-[10px] font-bold tracking-[0.15em] text-white/70 hover:text-white cursor-pointer transition-colors"
           >
-            LET'S CONNECT ON WHATSAPP <ArrowRight size={12} className="text-[#E53E3E]" />
+            LET&apos;S CONNECT ON WHATSAPP <ArrowRight size={12} className="text-[#E53E3E]" />
           </a>
         </div>
 

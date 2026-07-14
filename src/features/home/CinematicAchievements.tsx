@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Award, ShieldCheck, Trophy, Star, BrainCircuit } from "lucide-react";
+import { Award, Trophy, BrainCircuit } from "lucide-react";
 import { useState } from "react";
 
 import { ArrowUpRight } from "lucide-react";
@@ -21,7 +21,7 @@ type AchievementProps = {
   anyHovered: boolean;
 };
 
-function AchievementCard({ id, title, issuer, date, description, icon, image, link, isHovered, onHover, onLeave, anyHovered }: AchievementProps) {
+function AchievementCard({ title, issuer, date, description, icon, image, link, isHovered, onHover, onLeave, anyHovered }: AchievementProps) {
   const opacity = anyHovered && !isHovered ? 0.3 : 1;
 
   return (
@@ -238,8 +238,8 @@ export default function CinematicAchievements() {
                 date={item.date}
                 description={item.description}
                 icon={item.icon}
-                image={(item as any).image}
-                link={(item as any).link}
+                image={(item as { image?: string }).image}
+                link={(item as { link?: string }).link}
                 isHovered={hoveredId === item.id}
                 onHover={() => setHoveredId(item.id)}
                 onLeave={() => setHoveredId(null)}

@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+
 import { motion, Variants } from "framer-motion";
 import projectsData from "@/content/projects.json";
 import type { Project } from "@/types";
-import { Terminal, Code2, Layers, Cpu, ArrowRight } from "lucide-react";
+import { Terminal, Layers, Cpu, ArrowRight } from "lucide-react";
 import ProjectOverlay from "@/features/canvas/ProjectOverlay";
 
 export default function ClarityFeed({ onEnableGraph }: { onEnableGraph: () => void }) {
-  const router = useRouter();
+
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   // Parse projects
