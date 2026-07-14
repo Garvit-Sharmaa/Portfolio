@@ -7,16 +7,19 @@ import "./globals.css";
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://garvitbhardwaj.com";
@@ -28,6 +31,12 @@ export const metadata: Metadata = {
     template: "%s | Garvit Bhardwaj"
   },
   description: "I engineer production-grade AI and full-stack systems. No tutorials. No toy datasets.",
+  themeColor: "#050505",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+  },
   openGraph: {
     title: "Garvit Bhardwaj | AI & Full-Stack Engineer",
     description: "I engineer production-grade AI and full-stack systems. No tutorials. No toy datasets.",
@@ -43,8 +52,11 @@ export const metadata: Metadata = {
   },
 };
 
-import OmniSearch from "@/features/search/OmniSearch";
-import IntelligenceChat from "@/features/search/IntelligenceChat";
+import dynamic from "next/dynamic";
+
+// Lazy-load overlaid UI elements so they never block the initial page render
+const OmniSearch = dynamic(() => import("@/features/search/OmniSearch"), { ssr: false });
+const IntelligenceChat = dynamic(() => import("@/features/search/IntelligenceChat"), { ssr: false });
 
 export default function RootLayout({
   children,
@@ -56,6 +68,13 @@ export default function RootLayout({
       lang="en"
       className={`scroll-smooth ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${playfair.variable} dark antialiased`}
     >
+      <head>
+        {/* Preconnect to Google Fonts to avoid blocking render */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preload the hero portrait so LCP doesn't wait for it */}
+        <link rel="preload" href="/avatar_clean.png" as="image" fetchPriority="high" />
+      </head>
       <body className="min-h-screen bg-background text-foreground flex flex-col font-sans selection:bg-industrial-orange/30 selection:text-white">
         <OmniSearch />
         <IntelligenceChat />

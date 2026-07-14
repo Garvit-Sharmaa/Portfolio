@@ -4,7 +4,6 @@ import { useState, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import BootSequence from "@/features/boot/BootSequence";
 import CinematicHero from "@/features/home/CinematicHero";
 import ErrorBoundary from "@/components/error/ErrorBoundary";
@@ -71,22 +70,15 @@ export default function Home() {
                 animate={activeView}
                 transition={{ type: "spring", stiffness: 45, damping: 25, mass: 1.5 }}
                 className="absolute inset-0 origin-bottom-right"
-                style={{ filter: "brightness(1.08) contrast(1.05)" }}
-              >
-                {/* Next.js <Image> replaces the raw CSS background-image for WebP/AVIF serving */}
-                <Image
-                  src="/avatar_clean.png"
-                  alt="Garvit Bhardwaj"
-                  fill
-                  priority
-                  quality={85}
-                  sizes="(max-width: 768px) 0px, 60vw"
-                  style={{
-                    objectFit: "cover",
-                    objectPosition: "right bottom",
-                  }}
-                />
-              </motion.div>
+                style={{
+                  backgroundImage: "url('/avatar_clean.png')",
+                  // Fit perfectly to height. The top of the image is black, so scaling down exposes black background smoothly.
+                  backgroundSize: "auto 100%", 
+                  backgroundPosition: "right bottom",
+                  backgroundRepeat: "no-repeat",
+                  filter: "brightness(1.08) contrast(1.05)",
+                }}
+              />
               
               {/* Edge Feathering: Blends the hard edges of the scaled portrait into the black void */}
               <div 
