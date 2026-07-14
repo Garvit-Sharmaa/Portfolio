@@ -210,9 +210,13 @@ export default function CinematicContact() {
                 <p style={{ fontSize: "13px", lineHeight: 1.6, color: "rgba(255,255,255,0.5)", marginBottom: "16px" }}>
                   I'm currently open to full-time roles, freelance projects, and interesting collaborations.
                 </p>
-                <div className="flex items-center gap-2 text-[9px] font-bold tracking-[0.1em] text-[#E53E3E] cursor-pointer hover:text-white transition-colors">
-                  VIEW AVAILABILITY <Download size={10} />
-                </div>
+                <a 
+                  href="/resume.pdf" 
+                  target="_blank"
+                  className="flex items-center w-fit gap-2 text-[9px] font-bold tracking-[0.1em] text-[#E53E3E] cursor-pointer hover:text-white transition-colors"
+                >
+                  DOWNLOAD RESUME <Download size={10} />
+                </a>
               </div>
 
               <div className="border border-white/5 bg-black/40 backdrop-blur-md rounded-lg p-6">
@@ -224,11 +228,11 @@ export default function CinematicContact() {
                   Feel free to reach out to me on any of these platforms.
                 </p>
                 <div className="flex items-center gap-6 text-white/40">
-                  <SiGithub size={16} className="hover:text-white cursor-pointer transition-colors" />
-                  <FaLinkedin size={16} className="hover:text-white cursor-pointer transition-colors" />
-                  <SiX size={16} className="hover:text-white cursor-pointer transition-colors" />
-                  <SiLeetcode size={16} className="hover:text-white cursor-pointer transition-colors" />
-                  <Mail size={16} className="hover:text-white cursor-pointer transition-colors" />
+                  <a href="https://github.com/Garvit-Sharmaa" target="_blank"><SiGithub size={16} className="hover:text-white cursor-pointer transition-colors" /></a>
+                  <a href="https://www.linkedin.com/in/garvit--bhardwaj" target="_blank"><FaLinkedin size={16} className="hover:text-white cursor-pointer transition-colors" /></a>
+                  <a href="https://x.com/" target="_blank"><SiX size={16} className="hover:text-white cursor-pointer transition-colors" /></a>
+                  <a href="https://leetcode.com/" target="_blank"><SiLeetcode size={16} className="hover:text-white cursor-pointer transition-colors" /></a>
+                  <a href="mailto:garvitsharmaa015@gmail.com"><Mail size={16} className="hover:text-white cursor-pointer transition-colors" /></a>
                 </div>
               </div>
             </div>

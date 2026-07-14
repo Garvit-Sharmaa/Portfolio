@@ -42,3 +42,11 @@ export interface Project {
   brandColor?: string;
   images?: { src: string; explanation: string }[];
 }
+
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  projects?: Project[];
+  isStreaming?: boolean;
+}

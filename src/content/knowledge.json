@@ -1,0 +1,72 @@
+[
+  {
+    "id": "edu_1",
+    "category": "education",
+    "question": "Where did Garvit go to school?",
+    "keywords": ["school", "education", "degree", "college", "university", "btech", "bachelor", "study", "studied", "graduated", "academic", "alma mater", "qualification", "grades", "marks", "gpa", "major"],
+    "answer": "I hold a Bachelor of Technology (B.Tech) in Computer Science and Engineering. However, my true expertise comes from engineering complex, production-grade systems from scratch rather than just academic theory."
+  },
+  {
+    "id": "exp_1",
+    "category": "experience",
+    "question": "What is Garvit's work experience?",
+    "keywords": ["experience", "work", "job", "career", "history", "companies", "linkedin", "roles", "background", "past", "employed", "employment", "resume", "cv", "portfolio", "projects built"],
+    "answer": "I am a Senior Full-Stack and AI Engineer. My career is defined by architecting scalable systems, real-time distributed platforms, and predictive machine learning models for high-stakes environments."
+  },
+  {
+    "id": "loc_1",
+    "category": "location",
+    "question": "Where is Garvit located?",
+    "keywords": ["location", "live", "where are you", "city", "country", "based", "relocate", "remote", "timezone", "address", "from", "stay", "residence"],
+    "answer": "I am based in India, but I am highly accustomed to remote work and distributed asynchronous teams. I am open to discussing remote roles globally."
+  },
+  {
+    "id": "soft_1",
+    "category": "soft_skills",
+    "question": "What are Garvit's soft skills?",
+    "keywords": ["soft skills", "communication", "teamwork", "leadership", "management", "problem solving", "approach", "character", "personality", "culture fit", "collaboration", "strengths", "weakness"],
+    "answer": "Beyond code, I focus heavily on system architecture and product vision. I communicate complex technical tradeoffs clearly to stakeholders and excel in self-directed, high-agency environments where I can take ownership of a system from end-to-end."
+  },
+  {
+    "id": "why_1",
+    "category": "hire",
+    "question": "Why should I hire Garvit?",
+    "keywords": ["why hire", "hire you", "hire garvit", "best", "greatest strength", "value", "bring to table", "stand out", "different", "unique", "asset", "contribute"],
+    "answer": "You should hire me if you need an engineer who doesn't just write UI components, but architects the underlying infrastructure. I build systems that scale, utilizing robust CI/CD, proper state management, and optimized database architectures."
+  },
+  {
+    "id": "fav_1",
+    "category": "preferences",
+    "question": "What is Garvit's favorite tech stack?",
+    "keywords": ["favorite", "prefer", "best language", "stack", "enjoy", "like most", "tooling", "framework", "library", "preferred", "go to"],
+    "answer": "My preferred stack for building highly scalable web applications is Next.js (React) for the frontend, Node.js or NestJS for the backend, PostgreSQL for relational data, and Python for any machine learning or heavy data processing microservices."
+  },
+  {
+    "id": "hobby_1",
+    "category": "personal",
+    "question": "What does Garvit do for fun?",
+    "keywords": ["fun", "hobbies", "free time", "outside work", "personal", "weekend", "play", "games", "sports", "leisure", "relax"],
+    "answer": "When I'm not engineering software systems, I enjoy exploring new AI models, reading about system architecture, and continually pushing my skills by building complex personal projects like the ones you see in this portfolio!"
+  },
+  {
+    "id": "chal_1",
+    "category": "behavioral",
+    "question": "What is the biggest challenge Garvit has faced?",
+    "keywords": ["challenge", "biggest challenge", "hardest", "difficult", "struggle", "overcame", "obstacle", "toughest", "failure"],
+    "answer": "My biggest technical challenges usually involve scaling distributed systems under high concurrency. For example, ensuring sub-millisecond latency for real-time collaboration engines while maintaining strict consistency (CRDTs). I tackle these by deep-diving into the underlying protocols rather than relying on high-level abstractions."
+  },
+  {
+    "id": "team_1",
+    "category": "behavioral",
+    "question": "What is Garvit's ideal team?",
+    "keywords": ["team", "ideal team", "culture", "environment", "coworkers", "management style", "workplace", "preferences"],
+    "answer": "I thrive in high-agency environments with a strong engineering culture. My ideal team values rigorous code review, automated testing, open architectural discussions, and a 'best idea wins' mentality regardless of seniority."
+  },
+  {
+    "id": "weak_1",
+    "category": "behavioral",
+    "question": "What is Garvit's biggest weakness?",
+    "keywords": ["weakness", "flaw", "shortcoming", "improve", "bad at", "worst trait"],
+    "answer": "Because I am deeply passionate about system optimization, I sometimes risk over-engineering solutions for edge cases that may not occur in production. I've learned to counteract this by strictly adhering to MVP requirements and utilizing robust telemetry to only optimize what is proven to be a bottleneck."
+  }
+]

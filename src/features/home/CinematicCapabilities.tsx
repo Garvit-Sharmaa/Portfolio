@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { ArrowUpRight, BrainCircuit, Bot, TerminalSquare, Settings2, Network, Server, Accessibility } from "lucide-react";
 import { useState } from "react";
 import { 
@@ -121,8 +122,9 @@ function CapabilityModule({ number, title, evidence, tech, isHovered, onHover, o
                 {item.text}
               </p>
               {item.project && (
-                <div
-                  className="mt-2"
+                <Link
+                  href={`/projects/${item.project.toLowerCase().replace(/ /g, '-')}`}
+                  className="mt-2 w-fit group/link hover:text-white"
                   style={{
                     fontSize: "9px",
                     fontWeight: 600,
@@ -133,10 +135,11 @@ function CapabilityModule({ number, title, evidence, tech, isHovered, onHover, o
                     alignItems: "center",
                     gap: "4px",
                     transition: "color 0.3s",
+                    cursor: "pointer"
                   }}
                 >
-                  [ VIEW PROJECT: {item.project} ] <ArrowUpRight size={10} />
-                </div>
+                  [ VIEW PROJECT: {item.project} ] <ArrowUpRight size={10} className="transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                </Link>
               )}
             </div>
           </div>

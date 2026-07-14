@@ -44,6 +44,7 @@ export const metadata: Metadata = {
 };
 
 import OmniSearch from "@/features/search/OmniSearch";
+import IntelligenceChat from "@/features/search/IntelligenceChat";
 
 export default function RootLayout({
   children,
@@ -57,6 +58,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-background text-foreground flex flex-col font-sans selection:bg-industrial-orange/30 selection:text-white">
         <OmniSearch />
+        <IntelligenceChat />
         {children}
         <Analytics />
         <SpeedInsights />

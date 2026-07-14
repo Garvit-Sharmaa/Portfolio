@@ -67,7 +67,7 @@ export default function Sidebar() {
 
       {/* Bottom Actions */}
       <div className="space-y-1 pt-6">
-        <a href="#" className="flex items-center gap-3 px-3 py-2 text-foreground/70 hover:bg-border-subtle/30 font-medium text-[14px] rounded-lg transition-colors">
+        <a href="/resume.pdf" target="_blank" className="flex items-center gap-3 px-3 py-2 text-foreground/70 hover:bg-border-subtle/30 font-medium text-[14px] rounded-lg transition-colors">
           <FileText className="w-[18px] h-[18px] opacity-80" strokeWidth={2.5} />
           Read my CV
         </a>
