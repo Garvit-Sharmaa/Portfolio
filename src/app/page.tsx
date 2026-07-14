@@ -3,16 +3,19 @@
 import { useState, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import dynamic from "next/dynamic";
 import BootSequence from "@/features/boot/BootSequence";
-import SpatialCanvas from "@/features/canvas/SpatialCanvas";
 import CinematicHero from "@/features/home/CinematicHero";
-import CinematicAbout from "@/features/home/CinematicAbout";
-import CinematicProjectFeed from "@/features/home/CinematicProjectFeed";
-import CinematicCapabilities from "@/features/home/CinematicCapabilities";
-import CinematicAchievements from "@/features/home/CinematicAchievements";
-import CinematicContact from "@/features/home/CinematicContact";
 import ErrorBoundary from "@/components/error/ErrorBoundary";
 import { SiLeetcode } from "react-icons/si";
+
+// Lazy-load heavy view components — reduces initial JS bundle significantly
+const SpatialCanvas = dynamic(() => import("@/features/canvas/SpatialCanvas"), { ssr: false });
+const CinematicAbout = dynamic(() => import("@/features/home/CinematicAbout"));
+const CinematicProjectFeed = dynamic(() => import("@/features/home/CinematicProjectFeed"));
+const CinematicCapabilities = dynamic(() => import("@/features/home/CinematicCapabilities"));
+const CinematicAchievements = dynamic(() => import("@/features/home/CinematicAchievements"));
+const CinematicContact = dynamic(() => import("@/features/home/CinematicContact"));
 
 export type ActiveView = "hero" | "about" | "projects" | "capabilities" | "achievements" | "contact";
 
@@ -178,6 +181,7 @@ export default function Home() {
               <button 
                 className="md:hidden text-white hover:text-[#E53E3E] transition-colors"
                 onClick={() => setIsMobileMenuOpen(true)}
+                aria-label="Open navigation menu"
               >
                 <Menu size={24} />
               </button>
@@ -196,6 +200,7 @@ export default function Home() {
                   <button 
                     className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors"
                     onClick={() => setIsMobileMenuOpen(false)}
+                    aria-label="Close navigation menu"
                   >
                     <X size={32} />
                   </button>

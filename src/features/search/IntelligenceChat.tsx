@@ -74,6 +74,7 @@ export default function IntelligenceChat() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(true)}
+        aria-label="Open Garvit AI Chat"
         className="fixed bottom-6 right-6 z-[90] w-14 h-14 bg-surface1 border border-border-subtle rounded-full shadow-2xl flex items-center justify-center text-teal hover:border-teal/50 transition-colors"
       >
         <MessageSquare className="w-6 h-6" />
