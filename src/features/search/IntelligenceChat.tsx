@@ -100,7 +100,7 @@ export default function IntelligenceChat() {
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold text-foreground/90">Garvit AI</h3>
-                  <p className="text-[10px] text-foreground/40 font-mono">Intelligence Engine v1.0</p>
+
                 </div>
               </div>
               <button 
